@@ -1,0 +1,45 @@
+{
+  "name": "vicmie-seta",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
+    "escape-string-regexp": "^2.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "qrcode.react": "^1.0.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-helmet": "^5.2.1",
+    "react-redux": "^7.1.3",
+    "react-router-dom": "^5.1.2",
+    "react-ssr-scripts": "2.2.3",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.1.3",
+    "redux-thunk": "^2.3.0",
+    "serialize-javascript": "^2.1.2"
+  },
+  "scripts": {
+    "start": "react-ssr-scripts start",
+    "build": "react-ssr-scripts build",
+    "test": "react-ssr-scripts test",
+    "eject": "react-ssr-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+.card {
+  background-color: #ffffff;
+  width: 100%;
+  min-height: 300px;
+  border-radius: 6px;
+  margin: 0 1em;
+  color: #011627;
+  -webkit-box-shadow: -1px -1.3px 3px #aaa, 1px 2px 3px #3f51b5;
+          box-shadow: -1px -1.3px 3px #aaa, 1px 2px 3px #3f51b5;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: .5fr 1fr;
+      grid-template-columns: .5fr 1fr;
+}
+
+.card .car_image {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  justify-items: center;
+}
+
+.card .car_image svg {
+  width: 150px;
+  height: 150px;
+}
+
+.card .details {
+  padding-top: 1em;
+}
+
+.card .details .gray {
+  color: #aaa;
+}
+
+.bio {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn_nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.btn_nav button {
+  margin: 1em;
+}
+/*# sourceMappingURL=card.css.map */

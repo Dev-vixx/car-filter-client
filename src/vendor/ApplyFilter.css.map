@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,YAAY,CAAA;EACR,UAAU,EAAE,IAAI;EAChB,KAAK,EAAE,GAAG;EACV,UAAU,EAAE,KAAK;EACjB,UAAU,EAAE,oCAAoC;EAChD,MAAM,EAAE,MAAM;EACd,aAAa,EAAE,GAAG;CACrB",
+    "sources": [
+        "ApplyFilter.scss"
+    ],
+    "names": [],
+    "file": "ApplyFilter.css"
+}
