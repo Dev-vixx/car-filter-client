@@ -1,5 +1,5 @@
 import React, { Component, StrictMode } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 // FIXME: Import named exports here
 import  HomePage from './pages/home'

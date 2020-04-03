@@ -8,7 +8,7 @@ import Helmet from 'react-helmet'
 import { Search } from '@material-ui/icons'
 import { Button } from '@material-ui/core'
 import { connect } from 'react-redux'
-import { ShowErrorMsg } from '../redux/actionCreators/errorHandler'
+import { ShowErrorMsg,HideErrorMsg } from '../redux/actionCreators/errorHandler'
 class HomePage extends React.Component {
   state = {
     filteredCars: []
@@ -26,10 +26,13 @@ class HomePage extends React.Component {
   // search function
   handleSearch = async e => {
     e.preventDefault()
+    this.props.dispatch(ShowErrorMsg('Loading......'))
     let SearchResult = await fetch(
-      `http://localhost:4000/hi/test/apply_filter?car_model=${this.carBrandName.current.value}`
+      `https://lit-cove-17392.herokuapp.com/hi/test/apply_filter?car_model=${this.carBrandName.current.value}`
     )
     SearchResult = await SearchResult.json()
+    this.props.dispatch(HideErrorMsg())
+
     SearchResult.length < 1 &&
       this.props.dispatch(
         ShowErrorMsg(

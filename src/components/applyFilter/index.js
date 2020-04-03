@@ -9,7 +9,10 @@ import {
 } from '@material-ui/core'
 import { GridProvider } from '../../hoc/grid_provider'
 import { connect } from 'react-redux'
-import { ShowErrorMsg } from '../../redux/actionCreators/errorHandler'
+import {
+  ShowErrorMsg,
+  HideErrorMsg
+} from '../../redux/actionCreators/errorHandler'
 import AlertProvider from '../../hoc/alert_provider'
 import FilteredCars from '../filteredCars'
 class ApplyFilter extends React.Component {
@@ -18,7 +21,7 @@ class ApplyFilter extends React.Component {
     let set = new Set()
     let countries = new Set()
     let carColors = new Set()
-    fetch('http://localhost:4000/hi')
+    fetch('https://lit-cove-17392.herokuapp.com/hi')
       .then(res => res.json())
       .then(res => res.listOfCarOwners)
       .then(data => {
@@ -52,7 +55,7 @@ class ApplyFilter extends React.Component {
     country: '',
     color: '',
     carColors: [],
-    url: 'http://localhost:4000/hi/test/apply_filter?',
+    url: 'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter?',
     filteredCars: []
   }
   // handling selection on start year
@@ -80,13 +83,14 @@ class ApplyFilter extends React.Component {
       ...this.state,
       gender: e.target.value,
       url:
-        this.state.url === 'http://localhost:4000/hi/test/apply_filter?'
+        this.state.url ===
+        'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter?'
           ? `${this.state.url}gender=${e.target.value}&&`
           : this.state.url.split('?gender=')[0] ===
-            'http://localhost:4000/hi/test/apply_filter'
+            'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter'
           ? `${this.state.url.split('?gender=')[0]}?gender=${e.target.value}`
           : this.state.url.split('?&&gender=')[0] ===
-            'http://localhost:4000/hi/test/apply_filter'
+            'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter'
           ? `${this.state.url.split('&&gender=')[0]}?gender=${e.target.value}`
           : `${this.state.url}&&gender=${e.target.value}`
     })
@@ -98,15 +102,16 @@ class ApplyFilter extends React.Component {
       ...this.state,
       color: e.target.value,
       url:
-        this.state.url === 'http://localhost:4000/hi/test/apply_filter?'
+        this.state.url ===
+        'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter?'
           ? `${this.state.url}car_color=${e.target.value}`
           : this.state.url.split('?car_color=')[0] ===
-            'http://localhost:4000/hi/test/apply_filter'
+            'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter'
           ? `${this.state.url.split('?car_color=')[0]}?car_color=${
               e.target.value
             }&&`
           : this.state.url.split('?&&car_color=')[0] ===
-            'http://localhost:4000/hi/test/apply_filter'
+            'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter'
           ? `${this.state.url.split('&&car_color=')[0]}?car_color=${
               e.target.value
             }`
@@ -121,16 +126,17 @@ class ApplyFilter extends React.Component {
       country: e.target.value,
       url:
         // if
-        this.state.url === 'http://localhost:4000/hi/test/apply_filter?'
+        this.state.url ===
+        'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter?'
           ? `${this.state.url}country=${e.target.value}`
           : // else
           this.state.url.split('?country=')[0] ===
-            'http://localhost:4000/hi/test/apply_filter'
+            'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter'
           ? `${this.state.url.split('?country=')[0]}?country=${
               e.target.value
             }&&`
           : this.state.url.split('?&&country=')[0] ===
-            'http://localhost:4000/hi/test/apply_filter'
+            'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter'
           ? `${this.state.url.split('&&country=')[0]}?country=${e.target.value}`
           : `${this.state.url}&&country=${e.target.value}`
     })
@@ -139,6 +145,7 @@ class ApplyFilter extends React.Component {
 
   handleFilter = async e => {
     e.preventDefault()
+    this.props.ShowLoading()
     this.setState({
       ...this.state,
       FilteredCars: []
@@ -146,7 +153,8 @@ class ApplyFilter extends React.Component {
     fetch(this.state.url)
       .then(res => res.json())
       .then(res => {
-        if (!res[0]) return this.props.showError()
+        this.props.HideLoading()
+        if (res.length < 1) return this.props.showError()
         if (this.state.selectedValue || this.state.selectedValue2)
           return (() => {
             let u = res.filter(v => v.car_model_year > this.state.selectedValue)
@@ -164,6 +172,9 @@ class ApplyFilter extends React.Component {
             filteredCars: [...res]
           })
         }
+      })
+      .catch(err => {
+        this.props.showError()
       })
   }
 
@@ -264,7 +275,8 @@ class ApplyFilter extends React.Component {
               color='primary'
               type='submit'
               disabled={
-                this.state.url === 'http://localhost:4000/hi/test/apply_filter?'
+                this.state.url ===
+                'https://lit-cove-17392.herokuapp.com/hi/test/apply_filter?'
                   ? true
                   : false
               }
@@ -284,6 +296,8 @@ const mapStateToProp = state => ({
   showErrorState: state.ShowError.show
 })
 const mapDispatchToProp = dispatch => ({
-  showError: () => dispatch(ShowErrorMsg('Car not found'))
+  showError: () => dispatch(ShowErrorMsg('Car not found')),
+  ShowLoading: () => dispatch(ShowErrorMsg('Loading...')),
+  HideLoading: () => dispatch(HideErrorMsg())
 })
 export default connect(mapStateToProp, mapDispatchToProp)(ApplyFilter)
